@@ -23,18 +23,21 @@ max_number = 0
 for num in range(1, 1000000):
     temp = num
     sequence_length = 1
+    # iterate until sequence reaches 1
     while temp != 1:
         if temp % 2 == 0:
             temp = temp // 2 
         else:
             temp = 3 * temp + 1
+
         sequence_length += 1
+
+    # check if sequence length is greater than previous max
     if sequence_length > max_sequence_length:
         max_sequence_length = sequence_length
         max_number = num
 
 print(f"Number produces longest chain {max_number}")
 print(f"Length of sequence {max_sequence_length}")
-end_time = time.time()
-execution_time = end_time - start_time
+execution_time = time.time() - start_time
 print(f"Execution time {execution_time} seconds")
