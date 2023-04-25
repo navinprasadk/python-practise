@@ -9,14 +9,15 @@
 
 # How many reversible numbers are there below one-billion (109)?
 
-import time
-
-start_time = time.time()
+import timeit
+starttime = timeit.default_timer()
+print("The start time is :",starttime)
 
 # counter to count the reversible numbers
 count = 0
+reversibles = {}
 
-for num in range(1, 1000000000):
+for num in range(1, 10**9):
     # skip numbers that end with 0
     if num % 10 == 0:
         continue  
@@ -26,17 +27,21 @@ for num in range(1, 1000000000):
     
     is_sum_odd = True
     
-    # check if all digits in the sum are odd
-    for digit in str(sum):
-        if int(digit) % 2 == 0:
-            is_sum_odd = False
-            break
-
-    # if the sum consists entirely of odd digits, increment the counter            
-    if is_sum_odd:
+    if reverse_num in reversibles:
         count +=1
+    else:
+        # check if all digits in the sum are odd
+        for digit in str(sum):
+            if int(digit) % 2 == 0:
+                is_sum_odd = False
+                break
+
+        # if the sum consists entirely of odd digits, increment the counter            
+        if is_sum_odd:
+            count +=1
+            reversibles[reverse_num] = sum 
 
 print(f"number of reversible numbers under 1 billion is  {count}")
-end_time = time.time()
-execution_time = end_time - start_time
-print(f"execution time is {execution_time}")
+# print(f"reversible hashmap {reversibles}")
+print("The time difference is :", timeit.default_timer() - starttime)
+
