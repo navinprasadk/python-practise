@@ -15,7 +15,7 @@ print("The start time is :",starttime)
 
 # counter to count the reversible numbers
 count = 0
-reversibles = {}
+reversibles = set()
 
 for num in range(1, 10**9):
     # skip numbers that end with 0
@@ -23,13 +23,12 @@ for num in range(1, 10**9):
         continue  
     
     reverse_num = int(str(num)[::-1])
-    sum = num + reverse_num
-    
-    is_sum_odd = True
     
     if reverse_num in reversibles:
         count +=1
     else:
+        sum = num + reverse_num
+        is_sum_odd = True
         # check if all digits in the sum are odd
         for digit in str(sum):
             if int(digit) % 2 == 0:
