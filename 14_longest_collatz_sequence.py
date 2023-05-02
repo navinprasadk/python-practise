@@ -14,18 +14,24 @@
 
 # NOTE: Once the chain starts the terms are allowed to go above one million.
 
-import time
+import timeit
 
-start_time = time.time()
+start_time = timeit.default_timer()
 
 max_sequence_length = 0
 max_number = 0
+sequences = {}
 
-for num in range(1, 1000000):
+for num in range(1, 10**7):
     temp = num
     sequence_length = 1
     # iterate until sequence reaches 1
     while temp != 1:
+        # check if sequence length of temp is already in sequences dictionary
+        if temp in sequences:
+            sequence_length += sequences[temp] - 1
+            break
+        
         if temp % 2 == 0:
             temp = temp // 2 
         else:
@@ -33,6 +39,9 @@ for num in range(1, 1000000):
 
         sequence_length += 1
 
+    # add current number and sequence length to sequences dictionary
+    sequences[num] = sequence_length
+    
     # check if sequence length is greater than previous max
     if sequence_length > max_sequence_length:
         max_sequence_length = sequence_length
@@ -40,5 +49,5 @@ for num in range(1, 1000000):
 
 print(f"Number produces longest chain {max_number}")
 print(f"Length of sequence {max_sequence_length}")
-execution_time = time.time() - start_time
+execution_time = timeit.default_timer() - start_time
 print(f"Execution time {execution_time} seconds")
